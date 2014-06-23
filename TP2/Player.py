@@ -36,5 +36,52 @@ class Player:
             self.field.append(self.hand[deployedCard])
             del self.hand[deployedCard]
             return True
-            
     
+    
+    def clean(self):
+        
+        for c in self.hand:
+            if c.health < 1:
+                del self.hand[c]
+    
+    
+    def isAlive(self):    
+        
+        if(self.health > 0):
+            return True
+        else:
+            return False
+    
+    
+    def setMana(self, mana):
+        self.mana = mana
+        
+    
+def playTurn(player, ennemy):
+    
+    print("Qui voulez-vous attaquer ? ")
+    i = 1
+    for c in ennemy.field:
+        print(i ," : ", c.printCard)
+        i =+ 1
+    carteEnnemy = input()
+    
+    print("Avec qui voulez-vous attaquer ? ")
+    i = 1
+    for c in player.field:
+        print(i ," : ", c.printCard)
+        i =+ 1
+    cartePlayer = input()
+    
+    player.field[cartePlayer].fight(ennemy.field[carteEnnemy])
+    
+    carteDeploy = False
+    while carteDeploy == False:     
+        print("Quels serviteurs voulez-vous placer sur le terrain ?")
+        i = 1
+        for c in player.hand:
+            print(i ," : ", c.printCard)
+            i =+ 1
+        cartePlacer = input()
+        carteDeploy = player.deploy(player.hand[cartePlacer])
+        
