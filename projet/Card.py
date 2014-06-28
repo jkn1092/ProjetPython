@@ -24,25 +24,9 @@ class Card:
         card.health = card.health - self.attack
 
     
-    def isAlive(self):
+    def cardAlive(self):
         if self.health > 0:
             return True
         else:
             return False
         
-    
-    def initPlayer(self, deck):
-        player = {}
-        player['health'] = 30
-        player['mana'] = 1
-          
-        return player
-
-
-def loadCardSet(nomFichier):
-    f = open(nomFichier)
-    deck = []
-    for line in f:
-        deck.append(Card(line.split()[0],line.split()[1],line.split()[2],line.split()[3]))
-        
-    return deck
