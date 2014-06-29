@@ -43,7 +43,6 @@ class Player:
         
         i = 0
         for c in self.field:
-            print("sante : ", c.health)
             if c.health < 1:
                 del self.field[i]
             i += 1
