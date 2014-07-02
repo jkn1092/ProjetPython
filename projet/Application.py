@@ -3,7 +3,7 @@ Created on 28 juin 2014
 
 @author: Jkn1092
 '''
-from projet import Fonctions
+import Fonctions
 from Card import Card
 from Player import Player
 

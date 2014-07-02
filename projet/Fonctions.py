@@ -61,8 +61,8 @@ def playTurn(player, ennemy):
                 ennemy.health = ennemy.health - player.field[cartePlayer].attack    
             
     # Deployer une carte
-    
-    print("Vous avez ", player.mana ," point(s) de mana.")
+
+    print("Vous avez ", player.mana ," point(s) de mana, et ", player.health, " points de vie.")
     
     carteDeploy = False
     while carteDeploy == False:     

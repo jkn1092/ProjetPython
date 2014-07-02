@@ -90,20 +90,20 @@ while app:
 
 	if jeu == 1:
 		print("jeu")
-		button_retour = pygame.image.load("retour.png").convert_alpha()
+		#button_retour = pygame.image.load("retour.png").convert_alpha()
 		button_retour_x = 1092
 		button_retour_y = 597
 
-		button_pioche = pygame.image.load("piocher.png").convert_alpha()
+		#button_pioche = pygame.image.load("piocher.png").convert_alpha()
 		button_pioche_x = 945
 		button_pioche_y = 597
 
 
-		fond = pygame.image.load("mapff.png").convert()
+		fond = pygame.image.load("../Images/Plateau.png").convert()
 		fenetre.blit(fond, (0, 0))
-		fenetre.blit(button_retour, (button_retour_x, button_retour_y))
-		fenetre.blit(button_pioche,(button_pioche_x, button_pioche_y))
-		afficheVie(25)
+		#fenetre.blit(button_retour, (button_retour_x, button_retour_y))
+		#fenetre.blit(button_pioche,(button_pioche_x, button_pioche_y))
+		#afficheVie(25)
 		pygame.display.flip()
 		life = 30
 
@@ -118,9 +118,9 @@ while app:
 				if event.button == 1:
 					souris_x = event.pos[0]
 					souris_y = event.pos[1]
-		if souris_x > button_retour_x and souris_x < (button_retour_x + 150) and souris_y > button_retour_y and souris_y < (button_retour_y + 69):
+		'''if souris_x > button_retour_x and souris_x < (button_retour_x + 150) and souris_y > button_retour_y and souris_y < (button_retour_y + 69):
 			jeu = 0
 			accueil = 1
 		if souris_x > button_pioche_x and souris_x < (button_pioche_x + 170) and souris_y > button_pioche_y and souris_y < (button_pioche_y + 69):
 			life -= 10
-			afficheVie(life);
+			afficheVie(life);'''
