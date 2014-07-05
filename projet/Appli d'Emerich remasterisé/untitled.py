@@ -118,9 +118,4 @@ while app:
 				if event.button == 1:
 					souris_x = event.pos[0]
 					souris_y = event.pos[1]
-		'''if souris_x > button_retour_x and souris_x < (button_retour_x + 150) and souris_y > button_retour_y and souris_y < (button_retour_y + 69):
-			jeu = 0
-			accueil = 1
-		if souris_x > button_pioche_x and souris_x < (button_pioche_x + 170) and souris_y > button_pioche_y and souris_y < (button_pioche_y + 69):
-			life -= 10
-			afficheVie(life);'''
+					
