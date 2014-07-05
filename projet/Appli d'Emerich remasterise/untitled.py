@@ -60,12 +60,12 @@ while app:
 
 	if accueil == 1:
 		print("accueil")
-		fond = pygame.image.load("medieval.jpg").convert()
+		fond = pygame.image.load("accueil.jpg").convert()
 		fenetre.blit(fond, (0, 0))
 
-		button_play = pygame.image.load("play.png").convert_alpha()
-		button_play_x = 479
-		button_play_y = 260
+		button_play = pygame.image.load("play_game.png").convert_alpha()
+		button_play_x = 550
+		button_play_y = 350
 		fenetre.blit(button_play, (button_play_x, button_play_y))
 
 		pygame.display.flip()
