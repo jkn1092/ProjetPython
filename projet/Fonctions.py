@@ -55,50 +55,67 @@ def playTurn(player, ennemy):
     
     #Attaquer joueur
     
-    print("Qui voulez-vous attaquer ? ")
+    actionEffectue = False
     
-    i = 0
-    for c in ennemy.field:
-        print(i , ":")
-        c.printCard(False)
-        i += 1
+    while actionEffectue == False:
     
-    print(i ," : Joueur ennemi (", ennemy.health, " points de sante)")
-    print (i + 1 ," : Ne rien faire ")
+        print("Qui voulez-vous attaquer ? ")
         
-    carteEnnemy = input()
-    carteEnnemy = int(carteEnnemy)
-    
-    if carteEnnemy <= i:
-        print("Avec qui voulez-vous attaquer ? ")
+        i = 0
+        for c in ennemy.field:
+            print(i , ":")
+            c.printCard(False)
+            i += 1
         
-        j = 0  
-        for c in player.field:
-            print(j , ":")
-            c.printCard()
-            j += 1
-        
-        print (j ," : Annuler l'attaque ")
+        print(i ," : Joueur ennemi (", ennemy.health, " points de sante)")
+        print (i + 1 ," : Ne rien faire ")
             
-        cartePlayer = input()
-        cartePlayer = int(cartePlayer)
+        carteEnnemy = input()
+        carteEnnemy = int(carteEnnemy)
         
-        if cartePlayer < j:
-            if carteEnnemy < i:
+        if carteEnnemy <= i:
+            print("Avec qui voulez-vous attaquer ? ")
+            
+            j = 0  
+            for c in player.field:
+                print(j , ":")
+                c.printCard()
+                j += 1
+            
+            print (j ," : Annuler l'attaque ")
                 
-                carteProvoke = ennemy.hasProvoke()
-                if carteProvoke >= 0:
-                    player.field[cartePlayer].fight(ennemy.field[carteProvoke])             
-                
-                elif ennemy.field[carteEnnemy].shield:
-                    ennemy.field[carteEnnemy].shield = False
-                
-                else:    
-                    player.field[cartePlayer].fight(ennemy.field[carteEnnemy])
-                    if player.field[cartePlayer].hide:
-                        player.field[cartePlayer].hide = False
+            cartePlayer = input()
+            cartePlayer = int(cartePlayer)
+            
+            if cartePlayer < j:
+                if carteEnnemy < i:
                     
-            elif carteEnnemy == i:
-                ennemy.health = ennemy.health - player.field[cartePlayer].attack    
-            
+                    carteProvoke = ennemy.hasProvoke()
+                    if carteProvoke >= 0:
+                        player.field[cartePlayer].fight(ennemy.field[carteProvoke])
+                        actionEffectue = True           
+                    
+                    elif ennemy.field[carteEnnemy].hide:
+                        print("Cette carte est camoufle ;)")
+                        actionEffectue = False
+                    
+                    elif ennemy.field[carteEnnemy].shield:
+                        ennemy.field[carteEnnemy].shield = False
+                        actionEffectue = True
+                    
+                    else:    
+                        player.field[cartePlayer].fight(ennemy.field[carteEnnemy])
+                        if player.field[cartePlayer].hide:
+                            player.field[cartePlayer].hide = False
+                        actionEffectue = True
+                        
+                elif carteEnnemy == i:
+                    ennemy.health = ennemy.health - player.field[cartePlayer].attack
+                    if player.field[cartePlayer].hide:
+                        player.field[cartePlayer].hide = False    
+                    actionEffectue = True
+            else:
+                actionEffectue = True
+        else:
+                actionEffectue = True
         
