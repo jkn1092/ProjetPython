@@ -1,13 +1,19 @@
 import pygame
 from pygame.locals import *
-from Card import Card
-from Player import Player
+import cards
+import Player
 import Fonctions
 
 
-pioche = Fonctions.loadCardSet("../Deck.txt")
-player1 = Player(pioche)
-player2 = Player(pioche)
+pioche
+player1
+player2
+
+def initialisationAppli():
+	pioche = Fonctions.loadCardSet("Deck.txt")
+	player1 = Player(pioche)
+	player2 = Player(pioche)
+
 	
 def afficheVie(life):
 	if life <= 30 and life >= 22.6:
@@ -97,7 +103,7 @@ while app:
 	if jeu == 1:
 		print("jeu")
 
-		#initialisationAppli()
+		initialisationAppli()
 
 		fond = pygame.image.load("../Images/plateau.jpg").convert()
 		fenetre.blit(fond, (0, 0))
@@ -117,7 +123,7 @@ while app:
 		#fenetre.blit(button_pioche,(button_pioche_x, button_pioche_y))
 		#afficheVie(25)
 		pygame.display.flip()
-		#life = 30
+		life = 30
 
 	while jeu:
 		souris_x = 0
@@ -131,29 +137,9 @@ while app:
 					souris_x = event.pos[0]
 					souris_y = event.pos[1]
 		posCardX = 400
+		posCardY = 0
 		for card in player1.hand:
 			carteImage = pygame.image.load("../cards/" + card.name + ".png").convert_alpha()
-			#print("../cards/" + card.name + ".png")
 			carteImage = pygame.transform.scale(carteImage, (133, 181))
-			fenetre.blit(carteImage, (posCardX, 540))
-			if souris_x > posCardX and souris_x < posCardX + 143 and souris_y > 0 and souris_y < 540
-
+			fenetre.blit(carte(posCardX, posCardY))
 			posCardX += 153
-
-		posCardX = 400
-		for card in player2.hand:
-			carteImage = pygame.image.load("../cards/dos.png").convert_alpha()
-			carteImage = pygame.transform.scale(carteImage, (133, 181))
-			fenetre.blit(carteImage, (posCardX, 0))
-			posCardX += 153
-		pygame.display.flip()
-		
-		vieJoueur1 = pygame.font.Font(None, 30).render("Vie : " + str(player1.health), 1, (255, 255, 255))
-		fenetre.blit(vieJoueur1, (150, 50))
-		vieJoueur2 = pygame.font.Font(None, 30).render("Vie : " + str(player2.health), 1, (255, 255, 255))
-		fenetre.blit(vieJoueur2, (1130, 640))
-
-		manaJoueur1 = pygame.font.Font(None, 30).render("Mana : " + str(player1.mana), 1, (255, 255, 255))
-		fenetre.blit(manaJoueur1, (150, 70))
-		manaJoueur2 = pygame.font.Font(None, 30).render("Mana : " + str(player2.mana), 1, (255, 255, 255))
-		fenetre.blit(manaJoueur2, (1130, 620))

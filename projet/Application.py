@@ -1,8 +1,3 @@
-'''
-Created on 28 juin 2014
-
-@author: Jkn1092
-'''
 import Fonctions
 from Card import Card
 from Player import Player
@@ -28,7 +23,7 @@ while player1.isAlive() and player2.isAlive():
         print("Au tour de player 2 :")
         if len(pioche) > 0:
             player2.pickUp(pioche) 
-            
+
         Fonctions.playTurn(player2, player1)       
         tourDePlayer1 = True
         

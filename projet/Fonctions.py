@@ -1,9 +1,3 @@
-'''
-Created on 28 juin 2014
-
-@author: Jkn1092
-'''
-
 from Card import Card
 
 def loadCardSet(nomFichier):

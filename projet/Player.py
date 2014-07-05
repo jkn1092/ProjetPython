@@ -1,8 +1,3 @@
-'''
-Created on 3 juin 2014
-
-@author: Jkn1092
-'''
 import random
 from Card import Card
 
