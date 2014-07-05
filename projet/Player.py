@@ -58,5 +58,21 @@ class Player:
     
     def setMana(self, mana):
         self.mana = mana
-        
     
+    def hasProvoke(self):
+        for card in self.field:
+            if card.hasProvoke():
+                return True
+        return False
+    
+    def hasShield(self):
+        for card in self.field:
+            if card.hasShield():
+                return True
+        return False
+    
+    def hasHidden(self):
+        for card in self.field:
+            if card.isHidden():
+                return True
+        return False

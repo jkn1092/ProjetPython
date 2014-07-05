@@ -5,11 +5,14 @@ Created on 23 mai 2014
 '''
 class Card:
     
-    def __init__(self,name,health,attack,cost):
+    def __init__(self,name,health,attack,cost,provoke = False,shield = False,hide = False):
         self.name = name
         self.health = health
         self.attack = attack
         self.cost = cost
+        self.provoke = provoke
+        self.shield = shield
+        self.hide = hide
     
     
     def printCard(self,displayMana = True):
@@ -29,4 +32,12 @@ class Card:
             return True
         else:
             return False
-        
+    
+    def hasProvoke(self):
+        return self.provoke
+    
+    def hasShield(self):
+        return self.shield
+    
+    def isHidden(self):
+        return self.hide
