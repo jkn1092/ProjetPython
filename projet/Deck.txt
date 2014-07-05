@@ -1,30 +1,30 @@
-Goku 9 9 5
-Shanks 8 8 5
-Ging 8 8 5
-Vegeta 7 7 4
-Zoro 6 7 4
-Luffy 6 7 4
-Gohan 6 6 4
-Goomoonryong 5 6 4
-Naruto 5 6 4
-Sasuke 5 6 4
-Sabo 6 5 4
-Sanji 5 5 3
-Ichigo 4 5 3
-Natsu 4 5 3
-Killua 4 5 3
-BlackStar 5 4 3
-Gon 3 4 2
-Ken_Kitano 4 3 2
-ShiWoon 4 3 2
-Tsuna 3 4 2
-Edward_Elric 4 3 2
-Ace 2 6 2
-Gray 3 4 2
-Levi 3 3 1
-Ippo 2 2 1
-Gintoki 2 2 1
-Kagami 2 2 1
-Eyeshield21 1 1 1
-Kuroko 1 1 1
-Mister_Satan 1 1 1
+Goku 9 9 5 0 0 0
+Shanks 8 8 5 0 0 0
+Ging 8 8 5 0 0 1
+Vegeta 7 7 4 0 0 0
+Zoro 6 7 4 0 0 0
+Luffy 6 7 4 0 0 0
+Gohan 6 6 4 0 0 0
+Goomoonryong 5 6 4 0 0 0
+Naruto 5 6 4 0 0 1
+Sasuke 5 6 4 0 0 0
+Sabo 6 5 4 0 0 1
+Sanji 5 5 3 0 0 0
+Ichigo 4 5 3 0 0 0
+Natsu 4 5 3 0 0 0
+Killua 4 5 3 0 0 0
+BlackStar 5 4 3 1 0 0
+Gon 3 4 2 0 0 0
+Ken_Kitano 4 3 2 0 0 0
+ShiWoon 4 3 2 0 0 0
+Tsuna 3 4 2 0 1 0
+Edward_Elric 4 3 2 1 0 0
+Ace 2 6 2 0 0 0
+Gray 3 4 2 0 0 0
+Levi 3 3 1 0 0 0
+Ippo 2 2 1 0 1 0
+Gintoki 2 2 1 0 0 0
+Kagami 2 2 1 0 0 0
+Eyeshield21 1 1 1 0 1 0
+Kuroko 1 1 1 0 0 0
+Mister_Satan 1 1 1 1 0 0

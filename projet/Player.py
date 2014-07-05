@@ -60,10 +60,12 @@ class Player:
         self.mana = mana
     
     def hasProvoke(self):
+        j = 0
         for card in self.field:
             if card.hasProvoke():
-                return True
-        return False
+                return j
+            j += 1
+        return -1
     
     def hasShield(self):
         for card in self.field:

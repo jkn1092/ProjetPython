@@ -17,9 +17,9 @@ class Card:
     
     def printCard(self,displayMana = True):
         if displayMana:
-            print(self.name , " (" , self.attack , "/" , self.health , ") : " , self.cost)
+            print(self.name, " (" , self.attack , "/" , self.health , " / Provocation : " , self.provoke , " / Bouclier : " , self.shield , " / Camouflage " , self.hide , ") : " , self.cost)
         else:
-            print(self.name, " (" , self.attack , "/" , self.health , ")")
+            print(self.name, " (" , self.attack , "/" , self.health , " / Provocation : " , self.provoke , " / Bouclier : " , self.shield , " / Camouflage " , self.hide , ")")
     
     
     def fight(self, card):
