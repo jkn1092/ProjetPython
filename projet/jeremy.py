@@ -61,7 +61,7 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 					souris_x = event.pos[0]
 					souris_y = event.pos[1]
 					
-					if souris_x > 1150 and souris_x < (1150 + 127) and souris_y > 320 and souris_y < (320 + 65):
+					if souris_x > 1150 and souris_x < (1150 + 100) and souris_y > 320 and souris_y < (320 + 60):
 						turn = False
 			
 					posCardTerrainX = 812
@@ -211,7 +211,7 @@ while app:
 		joueur1 = pygame.font.Font(None, 50).render("Joueur 1", 1, (255, 255, 255))
 		#fenetre.blit(joueur1, (1080, 670))
 
-		button_turn = pygame.image.load("Images/turn.png").convert_alpha()
+		button_turn = pygame.image.load("Images/pass.png").convert_alpha()
 		
 		pygame.display.flip()
 
