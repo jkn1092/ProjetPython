@@ -109,6 +109,8 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 				
 					#Attaque un sbire
 					
+					
+					
 					PosFieldX = 812
 					if tourDePlayer1 :
 						posFieldPlayerY = 363
@@ -129,6 +131,9 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 					
 					PosFieldX = 812
 					if cartePlayer >= 0:
+						
+						
+						
 						carteChoisi = 0
 						for cardField in ennemy.field:
 							
