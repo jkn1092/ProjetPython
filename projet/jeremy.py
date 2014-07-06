@@ -8,17 +8,18 @@ def majAffichagePlateau(fenetre):
 	
 	fenetre.blit(fond, (0, 0))
 	fenetre.blit(button_turn,(1150,320))
-			
+		
 	piocheInfos = pygame.font.Font(None, 30).render(str(len(pioche)) + " cartes restantes", 1, (255, 255, 255))
 	fenetre.blit(piocheInfos, (1080, 400))
 			
-			#Affichage infos Joueur
+	#Affichage infos Joueur
 	fenetre.blit(joueur1, (1100, 670))
 	vieJoueur1 = pygame.font.Font(None, 30).render("Vie : " + str(player1.health), 1, (255, 255, 255))
 	fenetre.blit(vieJoueur1, (1150, 640))
 	manaJoueur1 = pygame.font.Font(None, 30).render("Mana : " + str(player1.mana), 1, (255, 255, 255))
 	fenetre.blit(manaJoueur1, (1150, 620))
-								
+	fenetre.blit(iconeJoueur1, (1100,400))
+									
 	fenetre.blit(joueur2, (20, 0))
 	vieJoueur2 = pygame.font.Font(None, 30).render("Vie : " + str(player2.health), 1, (255, 255, 255))
 	fenetre.blit(vieJoueur2, (70, 50))
@@ -40,6 +41,7 @@ def majAffichagePlateau(fenetre):
 		fenetre.blit(carteImage, (posCardX, 183))
 		posCardX -= 153	
 
+	pygame.display.flip()
 
 def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 	
@@ -208,10 +210,14 @@ while app:
 		joueur2 = pygame.font.Font(None, 50).render("Joueur 2", 1, (255, 255, 255))
 		#fenetre.blit(joueur2, (100, 0))
 
-		joueur1 = pygame.font.Font(None, 50).render("Joueur 1", 1, (255, 255, 255))
+		joueur1 = pygame.font.Font(None, 50).render("Joueur 1", 1, (255, 255, 255))		
+		iconeJoueur1 = pygame.image.load("Images/kaiji.png").convert_alpha()
+		iconeJoueur1 = pygame.transform.scale(iconeJoueur1, (150, 150))
+		
 		#fenetre.blit(joueur1, (1080, 670))
 
 		button_turn = pygame.image.load("Images/pass.png").convert_alpha()
+		
 		
 		pygame.display.flip()
 
