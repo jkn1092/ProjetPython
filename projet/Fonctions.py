@@ -1,4 +1,7 @@
+import pygame
+from pygame.locals import *
 from Card import Card
+
 
 def loadCardSet(nomFichier):
     f = open(nomFichier)
@@ -17,9 +20,7 @@ def loadCardSet(nomFichier):
     f.close()    
     return deck
 
-
 def playTurn(player, ennemy):
-    
     
     # Deployer une carte
 
@@ -111,5 +112,12 @@ def playTurn(player, ennemy):
             else:
                 actionEffectue = True
         else:
-                actionEffectue = True
+            actionEffectue = True
+ 
+
+            
+
+                
+            
+            
         
