@@ -7,10 +7,10 @@ import Fonctions
 def majAffichagePlateau(fenetre):
 	
 	fenetre.blit(fond, (0, 0))
-	fenetre.blit(button_turn,(1150,320))
+	fenetre.blit(button_turn,(1150,270))
 		
 	piocheInfos = pygame.font.Font(None, 30).render(str(len(pioche)) + " cartes restantes", 1, (255, 255, 255))
-	fenetre.blit(piocheInfos, (1080, 400))
+	fenetre.blit(piocheInfos, (1080, 350))
 			
 	#Affichage infos Joueur
 	fenetre.blit(joueur1, (1100, 670))
@@ -18,13 +18,14 @@ def majAffichagePlateau(fenetre):
 	fenetre.blit(vieJoueur1, (1150, 640))
 	manaJoueur1 = pygame.font.Font(None, 30).render("Mana : " + str(player1.mana), 1, (255, 255, 255))
 	fenetre.blit(manaJoueur1, (1150, 620))
-	fenetre.blit(iconeJoueur1, (1100,400))
+	fenetre.blit(iconeJoueur1, (1150,400))
 									
 	fenetre.blit(joueur2, (20, 0))
 	vieJoueur2 = pygame.font.Font(None, 30).render("Vie : " + str(player2.health), 1, (255, 255, 255))
 	fenetre.blit(vieJoueur2, (70, 50))
 	manaJoueur2 = pygame.font.Font(None, 30).render("Mana : " + str(player2.mana), 1, (255, 255, 255))
 	fenetre.blit(manaJoueur2, (70, 70))
+	fenetre.blit(iconeJoueur2, (70,100))
 			
 	#Affichage carte sur terrain
 	posCardX = 812
@@ -63,55 +64,56 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 					souris_x = event.pos[0]
 					souris_y = event.pos[1]
 					
-					if souris_x > 1150 and souris_x < (1150 + 100) and souris_y > 320 and souris_y < (320 + 60):
+					#Passer son tour
+					if souris_x > 1150 and souris_x < (1150 + 100) and souris_y > 270 and souris_y < (270 + 60):
 						turn = False
-			
-					posCardTerrainX = 812
-			
-					if tourDePlayer1 :
-						posCardX = 965
-						posCardY = 540
-						posCardTerrainY = 363
-					else:
-						posCardX = 200
-						posCardY = 0
-						posCardTerrainY = 183
-			
-					carteChoisi = 0
-					carteDeploy = False
-					for card in player.hand:
+
+					#Placer un joueur
+					if len(player.field) < 5:	
 						
-						nomCarte = card.name
-						if souris_x > posCardX and souris_x < (posCardX + 133) and souris_y > posCardY and souris_y < (posCardY + 181):
-							carteDeploy = player.deploy(carteChoisi)
-							if carteDeploy == False:
-								print("Vous n'avez pas assez de mana.")
-								souris_x = 0
-								souris_y = 0
-							else:
-								print("Carte placer")
-								carteImage = pygame.image.load("cards/" + nomCarte +".png").convert_alpha()
-								carteImage = pygame.transform.scale(carteImage, (133, 181))
-								
-								nbCartesField = len(player.field)
-								
-								positionNouvelleCarte = 153 * nbCartesField
-								
-								fenetre.blit(carteImage, ((posCardTerrainX - positionNouvelleCarte) , posCardTerrainY))
-								pygame.display.flip()
-								souris_x = 0
-								souris_y = 0
-						
-						carteChoisi += 1
-			
-						if tourDePlayer1 :    
-							posCardX -= 153
+						posCardTerrainX = 812
+						if tourDePlayer1 :
+							posCardX = 965
+							posCardY = 540
+							posCardTerrainY = 363
 						else:
-							posCardX += 153
+							posCardX = 200
+							posCardY = 0
+							posCardTerrainY = 183
+						
+						carteChoisi = 0
+						carteDeploy = False
+						for card in player.hand:
+							
+							nomCarte = card.name
+							if souris_x > posCardX and souris_x < (posCardX + 133) and souris_y > posCardY and souris_y < (posCardY + 181):
+								carteDeploy = player.deploy(carteChoisi)
+								if carteDeploy == False:
+									print("Vous n'avez pas assez de mana.")
+									souris_x = 0
+									souris_y = 0
+								else:
+									print("Carte placer")
+									carteImage = pygame.image.load("cards/" + nomCarte +".png").convert_alpha()
+									carteImage = pygame.transform.scale(carteImage, (133, 181))
+									
+									nbCartesField = len(player.field)
+									
+									positionNouvelleCarte = 153 * nbCartesField
+									
+									fenetre.blit(carteImage, ((posCardTerrainX - positionNouvelleCarte) , posCardTerrainY))
+									pygame.display.flip()
+									souris_x = 0
+									souris_y = 0
+							
+							carteChoisi += 1
+				
+							if tourDePlayer1 :    
+								posCardX -= 153
+							else:
+								posCardX += 153
 				
 					#Attaque un sbire
-					
-					
 					
 					PosFieldX = 812
 					if tourDePlayer1 :
@@ -205,19 +207,16 @@ while app:
 		#initialisationAppli()
 
 		fond = pygame.image.load("Images/plateau.jpg").convert()
-		#fenetre.blit(fond, (0, 0))
 
 		joueur2 = pygame.font.Font(None, 50).render("Joueur 2", 1, (255, 255, 255))
-		#fenetre.blit(joueur2, (100, 0))
+		iconeJoueur2 = pygame.image.load("Images/player.png").convert_alpha()
+		iconeJoueur2 = pygame.transform.scale(iconeJoueur2, (100, 214))
 
 		joueur1 = pygame.font.Font(None, 50).render("Joueur 1", 1, (255, 255, 255))		
-		iconeJoueur1 = pygame.image.load("Images/kaiji.png").convert_alpha()
-		iconeJoueur1 = pygame.transform.scale(iconeJoueur1, (150, 150))
+		iconeJoueur1 = pygame.image.load("Images/player.png").convert_alpha()
+		iconeJoueur1 = pygame.transform.scale(iconeJoueur1, (100, 214))
 		
-		#fenetre.blit(joueur1, (1080, 670))
-
 		button_turn = pygame.image.load("Images/pass.png").convert_alpha()
-		
 		
 		pygame.display.flip()
 
@@ -235,7 +234,7 @@ while app:
 			if tourDePlayer1 == True:
 				
 				player1.mana += 1				
-				if len(pioche) > 0:
+				if len(pioche) > 0 and len(player1.hand) < 7:
 					player1.pickUp(pioche)
 				
 				majAffichagePlateau(fenetre)
@@ -262,7 +261,7 @@ while app:
 
 			else:
 				player2.mana += 1								
-				if len(pioche) > 0:
+				if len(pioche) > 0 and len(player2.hand) < 7:
 					player2.pickUp(pioche)
 				
 				majAffichagePlateau(fenetre)
