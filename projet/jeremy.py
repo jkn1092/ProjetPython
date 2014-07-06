@@ -25,7 +25,7 @@ def majAffichagePlateau(fenetre):
 	manaJoueur2 = pygame.font.Font(None, 30).render("Mana : " + str(player2.mana), 1, (255, 255, 255))
 	fenetre.blit(manaJoueur2, (70, 70))
 			
-			#Affichage carte sur terrain
+	#Affichage carte sur terrain
 	posCardX = 812
 	for c in player1.field:
 		carteImage = pygame.image.load("cards/" + c.name +".png").convert_alpha()
@@ -123,9 +123,11 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 						if souris_x > PosFieldX and souris_x < (PosFieldX + 133) and souris_y > posFieldPlayerY and souris_y < (posFieldPlayerY + 181):
 							cartePlayer = carteChoisi
 							print("Carte choisi")
-					
+						
+						PosFieldX -= 153
 						carteChoisi += 1
 					
+					PosFieldX = 812
 					if cartePlayer >= 0:
 						carteChoisi = 0
 						for cardField in ennemy.field:
@@ -139,7 +141,8 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 								carteEnnemy = -1
 								souris_x = 0
 								souris_y = 0
-								
+							
+							PosFieldX -= 153	
 							carteChoisi += 1
 
 pioche = Fonctions.loadCardSet("Deck.txt")
