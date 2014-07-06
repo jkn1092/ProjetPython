@@ -49,11 +49,10 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 	
 	souris_x = 0
 	souris_y = 0
-
+	cartePlayer = -1
+	carteEnnemy = -1
+	
 	while turn:
-		
-		cartePlayer = -1
-		carteEnnemy = -1
 		
 		for event in pygame.event.get():
 
@@ -135,14 +134,13 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1):
 								carteEnnemy = carteChoisi
 								player.field[cartePlayer].fight(ennemy.field[carteEnnemy])
 								print("Carte attaquer !")
+								
 								cartePlayer = -1
 								carteEnnemy = -1
-							
+								souris_x = 0
+								souris_y = 0
+								
 							carteChoisi += 1
-						
-			
-			
-
 
 pioche = Fonctions.loadCardSet("Deck.txt")
 player1 = Player(pioche)
