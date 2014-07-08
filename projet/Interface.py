@@ -51,6 +51,20 @@ def majAffichagePlateau(fenetre,historiques):
 
 	pygame.display.flip()
 
+def majAffichageCards(fenetre, player1, player2):
+	infosCards = None
+	posCardsY = 0
+	for c in player1.field:
+		infosCards = pygame.font.Font(None,20).render(c.name + " Sante: " + str(c.health), 1, (255, 255, 255))
+		fenetre.blit(infosCards,(1100, posCardsY))
+		posCardsY += 21
+	
+	for c in player2.field:
+		infosCards = pygame.font.Font(None,20).render(c.name + " Sante: " + str(c.health), 1, (255, 255, 255))
+		fenetre.blit(infosCards,(1100, posCardsY))
+		posCardsY += 21
+	
+	pygame.display.flip()
 
 def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1,historiques):
 	
@@ -66,7 +80,8 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1,historiques):
 	while turn:
 		
 		for event in pygame.event.get():
-
+			if event.type == QUIT:
+					pygame.display.quit()
 			if event.type == MOUSEBUTTONDOWN:
 				if event.button == 1:
 					souris_x = event.pos[0]
@@ -241,26 +256,29 @@ while app:
 		button_turn = pygame.image.load("Images/pass.png").convert_alpha()
 		
 		pygame.display.flip()
-
+		quitte = 0
 	while jeu:
+		sonThemeCombat.play(1000)
 		
-		while player1.isAlive() and player2.isAlive():
-			sonThemeCombat.play(10)				
+		while player1.isAlive() and player2.isAlive() and quitte == 0:				
 			souris_x = 0
 			souris_y = 0
 			for event in pygame.event.get():
 				if event.type == QUIT:
+					quitte = 1
 					app = 0
 					jeu = 0
+					print(quitte)
 							
 			if tourDePlayer1 == True:
 				historiques.append("Au tour du joueur 1")
 				
 				player1.mana += 1				
-				if len(pioche) > 0 and len(player1.hand) < 7:
+				if len(pioche) > 0 and len(player1.hand) < 6:
 					player1.pickUp(pioche)
 				
 				majAffichagePlateau(fenetre, historiques)
+				majAffichageCards(fenetre, player1, player2)
 				
 				#Affichage carte en mains
 						
@@ -286,10 +304,11 @@ while app:
 				historiques.append("Au tour du joueur 2")
 				
 				player2.mana += 1								
-				if len(pioche) > 0 and len(player2.hand) < 7:
+				if len(pioche) > 0 and len(player2.hand) < 6:
 					player2.pickUp(pioche)
 				
 				majAffichagePlateau(fenetre, historiques)
+				majAffichageCards(fenetre, player1, player2)
 				
 				#Affichage carte en mains
 						
@@ -313,6 +332,7 @@ while app:
 				
 			player1.clean()
 			player2.clean()
+			#sonThemeCombat.stop()
 				
 		if player1.isAlive():
 			print("Player 1 a gagne. Player 2 a perdu.")
