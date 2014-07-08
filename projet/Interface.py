@@ -14,7 +14,14 @@ def majAffichagePlateau(fenetre,historiques):
 
 	#Affichage historiques
 	posHistoriquesY = 330
-	for c in historiques:
+	
+	
+# 	if len(historiques) > 10:
+# 		affichageHistoriques = historiques[-10]
+# 	else:
+# 		affichageHistoriques = historiques
+	
+	for c in historiques[::-1]:
 		infosPlateau = pygame.font.Font(None,20).render(c, 1, (255, 255, 255))
 		fenetre.blit(infosPlateau,(10, posHistoriquesY))
 		posHistoriquesY += 21
@@ -55,21 +62,22 @@ def majAffichageCards(fenetre, player1, player2):
 	infosCards = None
 	posCardsY = 0
 	for c in player1.field:
-		infosCards = pygame.font.Font(None,20).render(c.name + " Sante: " + str(c.health), 1, (255, 255, 255))
+		infosCards = pygame.font.Font(None,20).render(c.name + " Sante: " + str(c.health) + " " + str(c.provoke), 1, (255, 255, 255))
 		fenetre.blit(infosCards,(1100, posCardsY))
 		posCardsY += 21
 	
 	for c in player2.field:
-		infosCards = pygame.font.Font(None,20).render(c.name + " Sante: " + str(c.health), 1, (255, 255, 255))
+		infosCards = pygame.font.Font(None,20).render(c.name + " Sante: " + str(c.health) + " " + str(c.provoke), 1, (255, 255, 255))
 		fenetre.blit(infosCards,(1100, posCardsY))
 		posCardsY += 21
 	
 	pygame.display.flip()
 
-def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1,historiques):
+def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1, historiques):
 	
 	# Deployer une carte
-	pygame.init()
+	
+	sonRigole = pygame.mixer.Sound("sound/laugh.wav")
 	turn = True;
 	
 	souris_x = 0
@@ -116,7 +124,7 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1,historiques):
 									souris_x = 0
 									souris_y = 0
 								else:
-									historiques.append("Vous avez placer la carte " + nomCarte + ".")
+									historiques.append("Vous avez pose " + nomCarte + ".")
 									carteImage = pygame.image.load("cards/" + nomCarte +".png").convert_alpha()
 									carteImage = pygame.transform.scale(carteImage, (133, 181))
 									
@@ -155,7 +163,7 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1,historiques):
 						
 						if souris_x > PosFieldX and souris_x < (PosFieldX + 133) and souris_y > posFieldPlayerY and souris_y < (posFieldPlayerY + 181):
 							cartePlayer = carteChoisi
-							historiques.append("Vous avez choisi la carte : " + cardField.name + ".")
+							historiques.append("Vous avez choisi " + cardField.name + ".")
 						
 						PosFieldX -= 153
 						carteChoisi += 1
@@ -172,9 +180,24 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1,historiques):
 						for cardField in ennemy.field:
 							
 							if souris_x > PosFieldX and souris_x < (PosFieldX + 133) and souris_y > posFieldEnnemY and souris_y < (posFieldEnnemY + 181):
-								carteEnnemy = carteChoisi
-								player.field[cartePlayer].fight(ennemy.field[carteEnnemy])
-								historiques.append("Vous avez attaque la carte " + cardField.name + ".")
+								
+								if cardField.shield:
+									cardField.shield = False
+									historiques.append(cardField.name + " a perdu son bouclier.")
+									sonRigole.play()
+								
+								elif cardField.hide:
+									historiques.append("Cette carte est camoufle.")
+								
+								else:	
+									carteEnnemy = carteChoisi
+									player.field[cartePlayer].fight(ennemy.field[carteEnnemy])
+									if player.field[cartePlayer].hide:
+										player.field[cartePlayer].hide = False
+										historiques.append(player.field[cartePlayer].name + " se montre.")
+									historiques.append("Vous avez attaque " + cardField.name + ".")
+
+									
 								
 								cartePlayer = -1
 								carteEnnemy = -1
@@ -197,6 +220,7 @@ fenetre = pygame.display.set_mode((1280, 720))
 sonFight = pygame.mixer.Sound("sound/fight.wav")
 sonWin = pygame.mixer.Sound("sound/win.wav")
 sonThemeCombat = pygame.mixer.Sound("sound/combat.wav")
+sonDying = pygame.mixer.Sound("sound/dying.wav")
 
 historiques = []
 
@@ -341,6 +365,7 @@ while app:
 			print("Player 2 a gagne. Player 1 a perdu.")
 			historiques.append("Joueur 2 win. Joueur 1 lose.")
 			
+		sonDying.play()	
 		sonWin.play()
 		jeu = False
 		#app = False
