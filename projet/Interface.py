@@ -181,6 +181,7 @@ pygame.mixer.init(44100, -16, 2, 2048)
 fenetre = pygame.display.set_mode((1280, 720))
 sonFight = pygame.mixer.Sound("sound/fight.wav")
 sonWin = pygame.mixer.Sound("sound/win.wav")
+sonThemeCombat = pygame.mixer.Sound("sound/combat.wav")
 
 historiques = []
 
@@ -244,7 +245,7 @@ while app:
 	while jeu:
 		
 		while player1.isAlive() and player2.isAlive():
-						
+			sonThemeCombat.play(10)				
 			souris_x = 0
 			souris_y = 0
 			for event in pygame.event.get():
