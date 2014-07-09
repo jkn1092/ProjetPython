@@ -4,7 +4,7 @@ from Card import Card
 class Player:
     
     def __init__(self, deck):
-        self.health = 30
+        self.health = 5
         self.mana = 1
         self.field = []
         self.hand = []

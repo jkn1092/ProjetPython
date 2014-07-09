@@ -14,13 +14,7 @@ def majAffichagePlateau(fenetre,historiques):
 
 	#Affichage historiques
 	posHistoriquesY = 330
-	
-	
-# 	if len(historiques) > 10:
-# 		affichageHistoriques = historiques[-10]
-# 	else:
-# 		affichageHistoriques = historiques
-	
+		
 	for c in historiques[::-1]:
 		infosPlateau = pygame.font.Font(None,20).render(c, 1, (255, 255, 255))
 		fenetre.blit(infosPlateau,(10, posHistoriquesY))
@@ -78,7 +72,11 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1, historiques):
 	# Deployer une carte
 	
 	sonRigole = pygame.mixer.Sound("sound/laugh.wav")
+	sonShaco = pygame.mixer.Sound("sound/shaco.wav")
+	
 	turn = True;
+	
+	listCarteUtilise = []
 	
 	souris_x = 0
 	souris_y = 0
@@ -163,8 +161,12 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1, historiques):
 						
 						if souris_x > PosFieldX and souris_x < (PosFieldX + 133) and souris_y > posFieldPlayerY and souris_y < (posFieldPlayerY + 181):
 							cartePlayer = carteChoisi
-							historiques.append("Vous avez choisi " + cardField.name + ".")
-						
+							if carteChoisi in listCarteUtilise:
+								historiques.append("Vous avez deja utilise " + cardField.name + ".")
+								cartePlayer = -1
+							else:
+								historiques.append("Vous avez choisi " + cardField.name + ".")
+							
 						PosFieldX -= 153
 						carteChoisi += 1
 					
@@ -172,8 +174,15 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1, historiques):
 					if cartePlayer >= 0:
 						
 						if souris_x > posEnnemyX and souris_x < (posEnnemyX + 100) and souris_y > posEnnemyY and souris_y < (posEnnemyY + 214):
-							ennemy.health = ennemy.health - player.field[cartePlayer].attack
-							historiques.append("Vous avez attaque le joueur.")
+							
+							listCarteUtilise.append(cartePlayer)
+							carteProvoke = ennemy.hasProvoke()
+							if carteProvoke >= 0:
+								player.field[cartePlayer].fight(ennemy.field[carteProvoke])
+								historiques.append(ennemy.field[carteProvoke].name + " vous a provoque.")
+							else:
+								ennemy.health = ennemy.health - player.field[cartePlayer].attack
+								historiques.append("Vous avez attaque le joueur.")
 						
 						
 						carteChoisi = 0
@@ -181,24 +190,35 @@ def playTurnGraphic(fenetre, player, ennemy, tourDePlayer1, historiques):
 							
 							if souris_x > PosFieldX and souris_x < (PosFieldX + 133) and souris_y > posFieldEnnemY and souris_y < (posFieldEnnemY + 181):
 								
-								if cardField.shield:
+								if player.field[cartePlayer].hide:
+									player.field[cartePlayer].hide = False
+									historiques.append(player.field[cartePlayer].name + " se montre.")
+									sonShaco.play()
+								
+								listCarteUtilise.append(cartePlayer)
+								
+								carteProvoke = ennemy.hasProvoke()
+								if carteProvoke >= 0:
+									historiques.append("Vous avez attaque " + cardField.name + ".")
+									player.field[cartePlayer].fight(ennemy.field[carteProvoke])
+									historiques.append(ennemy.field[carteProvoke].name + " vous a provoque.")
+									sonRigole.play()
+									
+								elif cardField.shield:
 									cardField.shield = False
 									historiques.append(cardField.name + " a perdu son bouclier.")
 									sonRigole.play()
 								
 								elif cardField.hide:
 									historiques.append("Cette carte est camoufle.")
-								
+									sonShaco.play()
 								else:	
 									carteEnnemy = carteChoisi
 									player.field[cartePlayer].fight(ennemy.field[carteEnnemy])
-									if player.field[cartePlayer].hide:
-										player.field[cartePlayer].hide = False
-										historiques.append(player.field[cartePlayer].name + " se montre.")
 									historiques.append("Vous avez attaque " + cardField.name + ".")
-
 									
 								
+
 								cartePlayer = -1
 								carteEnnemy = -1
 								souris_x = 0
@@ -221,12 +241,14 @@ sonFight = pygame.mixer.Sound("sound/fight.wav")
 sonWin = pygame.mixer.Sound("sound/win.wav")
 sonThemeCombat = pygame.mixer.Sound("sound/combat.wav")
 sonDying = pygame.mixer.Sound("sound/dying.wav")
+sonIntro = pygame.mixer.Sound("sound/intro.wav")
 
 historiques = []
 
 app = True
 accueil = True
 jeu = False
+finPartie = False
 
 while app:
 		
@@ -240,6 +262,7 @@ while app:
 		button_play_y = 350
 		fenetre.blit(button_play, (button_play_x, button_play_y))
 		
+		sonIntro.play()
 		pygame.display.flip()
 	
 	while accueil:
@@ -361,13 +384,27 @@ while app:
 		if player1.isAlive():
 			print("Player 1 a gagne. Player 2 a perdu.")
 			historiques.append("Joueur 1 win. Joueur 2 lose.")
+			Victoire = pygame.font.Font(None, 80).render("Joueur 1 win.", 1, (255, 255, 255))
 		else:
 			print("Player 2 a gagne. Player 1 a perdu.")
 			historiques.append("Joueur 2 win. Joueur 1 lose.")
+			Victoire = pygame.font.Font(None, 80).render("Joueur 2 win", 1, (255, 255, 255))
 			
+		fenetre.blit(Victoire, (250, 300))	
+		pygame.display.flip()
 		sonDying.play()	
 		sonWin.play()
-		jeu = False
+		
+		for event in pygame.event.get():
+			if event.type == MOUSEBUTTONDOWN:
+				if event.button == 1:
+					pygame.display.quit()
+			if event.type == QUIT:
+				pygame.display.quit()
+					
+		
+		
+		
 		#app = False
 	
 		
