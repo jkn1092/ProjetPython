@@ -1,0 +1,1 @@
+Pour lancer le jeu, excuter le fichier interface.py.
